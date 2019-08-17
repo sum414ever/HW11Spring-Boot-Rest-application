@@ -1,15 +1,17 @@
 package edu.cursor.springREST.repository;
 
-import edu.cursor.springREST.objects.Author;
-import edu.cursor.springREST.objects.Book;
+import edu.cursor.springREST.entity.Author;
+import edu.cursor.springREST.entity.Book;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
-public class AuthorRepository implements IAuthorRepository {
+public class AuthorRepository implements AuthorRepositoryInterface {
     List<Author> authors = new ArrayList<>();
 
     @Override
@@ -24,29 +26,27 @@ public class AuthorRepository implements IAuthorRepository {
     }
 
     @Override
-    public List<Book> sortByAuthor(String authorId) {
-        List<Book> books = new ArrayList<>();
-        for (Author a : authors) {
-            if (a.getId().equals(authorId)) {
-                books = a.getBooks();
-            }
-        }
-        return books;
+    public List<Book> filterByAuthor(String authorId) {
+        Optional<List<Book>> books = authors.stream()
+                .filter(author -> author.getId().equals(authorId))
+                .map(Author::getBooks).findFirst();
+
+        return books.orElse(Collections.EMPTY_LIST);
     }
 
     @Override
-    public Author refreshAuthor(String authorId, Author a) {
-        int index = 0;
-        Author author = new Author();
-        for (Author au : authors) {
-            if (au.getId().equals(authorId)) {
-                index = authors.indexOf(au);
-                author = au;
+    public Author updateAuthor(String authorId, Author inputAuthor) {
+        int indexAuthorInArray = 0;
+        Author outputAuthor = new Author();
+        for (Author author : authors) {
+            if (author.getId().equals(authorId)) {
+                indexAuthorInArray = authors.indexOf(author);
+                outputAuthor = author;
             }
         }
-        author.setFirstName(a.getFirstName());
-        author.setLastName(a.getLastName());
-        authors.add(index, author);
-        return author;
+        outputAuthor.setFirstName(inputAuthor.getFirstName());
+        outputAuthor.setLastName(inputAuthor.getLastName());
+        authors.add(indexAuthorInArray, outputAuthor);
+        return outputAuthor;
     }
 }

@@ -1,4 +1,4 @@
-package edu.cursor.springREST.objects;
+package edu.cursor.springREST.entity;
 
 import lombok.Data;
 

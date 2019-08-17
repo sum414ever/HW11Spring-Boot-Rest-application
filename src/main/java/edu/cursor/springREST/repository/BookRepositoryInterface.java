@@ -1,14 +1,14 @@
 package edu.cursor.springREST.repository;
 
-import edu.cursor.springREST.objects.Book;
+import edu.cursor.springREST.entity.Book;
 
 import java.util.List;
 
-public interface IBookRepository {
+public interface BookRepositoryInterface {
 
     Book addBook(Book book);
 
-    Book refreshBook(String bookId, Book book);
+    Book updateBook(String bookId, Book book);
 
     List<Book> sortByGenre(String genre);
 

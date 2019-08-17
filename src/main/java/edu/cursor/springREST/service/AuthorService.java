@@ -1,8 +1,8 @@
 package edu.cursor.springREST.service;
 
-import edu.cursor.springREST.objects.Author;
-import edu.cursor.springREST.objects.Book;
-import edu.cursor.springREST.repository.IAuthorRepository;
+import edu.cursor.springREST.entity.Author;
+import edu.cursor.springREST.entity.Book;
+import edu.cursor.springREST.repository.AuthorRepositoryInterface;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class AuthorService {
-    private final IAuthorRepository iAuthorRepository;
+    private final AuthorRepositoryInterface iAuthorRepository;
 
     public Author addAuthor(Author a) {
         Author author = new Author();
@@ -27,16 +27,16 @@ public class AuthorService {
         iAuthorRepository.deleteAuthor(deletedAuthorId);
     }
 
-    public List<Book> sortByAuthor(String authorId) {
-        return iAuthorRepository.sortByAuthor(authorId);
+    public List<Book> filterByAuthor(String authorId) {
+        return iAuthorRepository.filterByAuthor(authorId);
     }
 
 
-    public Author refreshAuthor(String authorId, Author a) {
+    public Author updateAuthor(String authorId, Author a) {
         Author author = new Author();
         author.setId(a.getId());
         author.setFirstName(a.getFirstName());
         author.setLastName(a.getLastName());
-        return iAuthorRepository.refreshAuthor(authorId, author);
+        return iAuthorRepository.updateAuthor(authorId, author);
     }
 }

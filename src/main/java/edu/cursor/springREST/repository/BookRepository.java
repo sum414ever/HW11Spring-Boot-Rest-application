@@ -1,6 +1,6 @@
 package edu.cursor.springREST.repository;
 
-import edu.cursor.springREST.objects.Book;
+import edu.cursor.springREST.entity.Book;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
-public class BookRepository implements IBookRepository {
+public class BookRepository implements BookRepositoryInterface {
     List<Book> books = new ArrayList<>();
 
     @Override
@@ -18,20 +18,20 @@ public class BookRepository implements IBookRepository {
     }
 
     @Override
-    public Book refreshBook(String bookId, Book b) {
-        int index = 0;
-        Book book = new Book();
-        for (Book bu : books) {
-            if (bu.getId().equals(bookId)) {
-                index = books.indexOf(bu);
-                book = bu;
+    public Book updateBook(String bookId, Book inputBook) {
+        int indexBookInArray = 0;
+        Book outputBook = new Book();
+        for (Book book : books) {
+            if (book.getId().equals(bookId)) {
+                indexBookInArray = books.indexOf(book);
+                outputBook = book;
             }
         }
-        book.setTitle(b.getTitle());
-        book.setGenre(b.getGenre());
-        book.setRating(b.getRating());
-        books.add(index, book);
-        return book;
+        outputBook.setTitle(inputBook.getTitle());
+        outputBook.setGenre(inputBook.getGenre());
+        outputBook.setRating(inputBook.getRating());
+        books.add(indexBookInArray, outputBook);
+        return outputBook;
     }
 
     @Override
