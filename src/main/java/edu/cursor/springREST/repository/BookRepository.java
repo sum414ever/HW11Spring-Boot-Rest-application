@@ -36,7 +36,9 @@ public class BookRepository implements BookRepositoryInterface {
 
     @Override
     public List<Book> sortByGenre(String genre) {
-        return books.stream().filter(book -> book.getGenre().equals(genre)).collect(Collectors.toList());
+        return books.stream()
+                .filter(book -> book.getGenre().equals(genre))
+                .collect(Collectors.toList());
     }
 
     @Override
