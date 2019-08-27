@@ -14,7 +14,7 @@ import java.util.List;
 public class BookController {
     private final BookService bookService;
 
-    @PostMapping("admin/book")
+    @PostMapping("/book")
     @ResponseBody
     public ResponseEntity<Book> addBook(@RequestBody Book book) {
         bookService.addBook(book);
@@ -23,16 +23,15 @@ public class BookController {
                 .build();
     }
 
-    @GetMapping("user/book/{genre}")
+    @GetMapping("/book/{genre}")
     public ResponseEntity<List<Book>> sortByGenre(@PathVariable("genre") String genre) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(bookService.sortByGenre(genre));
     }
 
-    @DeleteMapping("admin/book/{id}")
+    @DeleteMapping("/book/{id}")
     public ResponseEntity deleteBook(@PathVariable("id") Long id) {
-
         bookService.deleteBook(id);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)

@@ -14,7 +14,7 @@ import java.util.List;
 public class AuthorController {
     private final AuthorService authorService;
 
-    @PostMapping("admin/author")
+    @PostMapping("/author")
     @ResponseBody
     public ResponseEntity<Author> addAuthor(@RequestBody Author author) {
         authorService.addAuthor(author);
@@ -23,7 +23,7 @@ public class AuthorController {
                 .build();
     }
 
-    @DeleteMapping("admin/author/{id}")
+    @DeleteMapping("/author/{id}")
     public ResponseEntity deleteAuthor(@PathVariable("id") Long id) {
         authorService.deleteAuthor(id);
         return ResponseEntity
@@ -31,14 +31,14 @@ public class AuthorController {
                 .body("Author by id " + id + " was deleted successfully");
     }
 
-    @GetMapping("user/author/{id}")
+    @GetMapping("/author/{id}")
     public ResponseEntity<Author> getAuthorById(@PathVariable("id") Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(authorService.getAuthorById(id));
     }
 
-    @GetMapping("user/author")
+    @GetMapping("/author")
     public ResponseEntity<List<Author>> findAllAuthors() {
         return ResponseEntity
                 .status(HttpStatus.OK)

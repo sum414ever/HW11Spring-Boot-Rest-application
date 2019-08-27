@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Data
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "title", nullable = false, unique = true)
