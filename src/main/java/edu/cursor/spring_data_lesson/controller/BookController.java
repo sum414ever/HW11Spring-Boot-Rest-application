@@ -10,12 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("book")
 @AllArgsConstructor
 public class BookController {
     private final BookService bookService;
 
-    @PostMapping
+    @PostMapping("admin/book")
     @ResponseBody
     public ResponseEntity<Book> addBook(@RequestBody Book book) {
         bookService.addBook(book);
@@ -24,15 +23,15 @@ public class BookController {
                 .build();
     }
 
-    @GetMapping("{genre}")
+    @GetMapping("user/book/{genre}")
     public ResponseEntity<List<Book>> sortByGenre(@PathVariable("genre") String genre) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(bookService.sortByGenre(genre));
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity deleteBook(@PathVariable("id") String id) {
+    @DeleteMapping("admin/book/{id}")
+    public ResponseEntity deleteBook(@PathVariable("id") Long id) {
 
         bookService.deleteBook(id);
         return ResponseEntity

@@ -10,12 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("author")
 @AllArgsConstructor
 public class AuthorController {
     private final AuthorService authorService;
 
-    @PostMapping
+    @PostMapping("admin/author")
     @ResponseBody
     public ResponseEntity<Author> addAuthor(@RequestBody Author author) {
         authorService.addAuthor(author);
@@ -24,22 +23,22 @@ public class AuthorController {
                 .build();
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity deleteAuthor(@PathVariable("id") String id) {
+    @DeleteMapping("admin/author/{id}")
+    public ResponseEntity deleteAuthor(@PathVariable("id") Long id) {
         authorService.deleteAuthor(id);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .body("Author by id " + id + " was deleted successfully");
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<Author> getAuthorById(@PathVariable("id") String id) {
+    @GetMapping("user/author/{id}")
+    public ResponseEntity<Author> getAuthorById(@PathVariable("id") Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(authorService.getAuthorById(id));
     }
 
-    @GetMapping
+    @GetMapping("user/author")
     public ResponseEntity<List<Author>> findAllAuthors() {
         return ResponseEntity
                 .status(HttpStatus.OK)

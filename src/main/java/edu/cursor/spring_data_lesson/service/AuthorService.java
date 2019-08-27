@@ -23,12 +23,12 @@ public class AuthorService implements AuthorServiceInterface {
     }
 
     @Override
-    public void deleteAuthor(String id) {
+    public void deleteAuthor(Long id) {
         authorRepo.deleteById(id);
     }
 
     @Override
-    public Author getAuthorById(String id) {
+    public Author getAuthorById(Long id) {
         return authorRepo.findById(id).orElseThrow(() -> new DataNotFoundException("Not found"));
     }
 

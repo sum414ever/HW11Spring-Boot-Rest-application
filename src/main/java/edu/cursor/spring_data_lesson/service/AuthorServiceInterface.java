@@ -2,15 +2,16 @@ package edu.cursor.spring_data_lesson.service;
 
 import edu.cursor.spring_data_lesson.entity.Author;
 
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 public interface AuthorServiceInterface {
     void addAuthor(Author author);
 
-    void deleteAuthor(String id);
+    @Transactional
+    void deleteAuthor(Long id);
 
-    Author getAuthorById(String id);
+    Author getAuthorById(Long id);
 
     List<Author> findAllAuthors();
 }

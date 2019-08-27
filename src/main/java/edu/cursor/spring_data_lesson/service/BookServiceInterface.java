@@ -9,5 +9,5 @@ public interface BookServiceInterface {
 
     List<Book> sortByGenre(String genre);
 
-    void deleteBook(String id);
+    void deleteBook(Long id);
 }

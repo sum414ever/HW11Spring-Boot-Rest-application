@@ -27,7 +27,6 @@ public class BookService implements BookServiceInterface{
     }
 
     @Override
-    public void deleteBook(String id) {
-        bookRepo.deleteById(id);
+    public void deleteBook(Long id) { bookRepo.deleteById(id);
     }
 }
